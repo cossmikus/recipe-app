@@ -1,2 +1,3 @@
-Django>=3.2.4,<3.3
-djangorestframework>=3.12.4,<3.13
+docker-compose build
+docker-compose run --rm app sh -c "django-admin startproject app ."
+docker-compose up
