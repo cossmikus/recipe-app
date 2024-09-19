@@ -15,11 +15,14 @@ services:
       - DB_NAME=devdb
       - DB_USER=devuser
       - DB_PASS=changeme
+      - DB_PORT=5433
     depends_on:
       - db
 
   db:
     image: postgres:13-alpine
+    ports:
+      - "5433:5432"  # Expose PostgreSQL on port 5433 of the host machine
     volumes:
       - dev-db-data:/var/lib/postgresql/data
     environment:
