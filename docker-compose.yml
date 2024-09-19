@@ -1,39 +1,3 @@
-# version: "3.9"
-
-# services:
-#   app:
-#     build:
-#       context: .
-#     ports:
-#       - "8002:8002"
-#     volumes:
-#       - ./app:/app
-#     command: >
-#       sh -c "sh -c "python manage.py wait_for_db &&
-#              python manage.py migrate &&
-#              python manage.py runserver 0.0.0.0:8002"
-#     environment:
-#       - DB_HOST=db
-#       - DB_NAME=devdb
-#       - DB_USER=devuser
-#       - DB_PASS=changeme
-#       - DB_PORT=5432
-#     depends_on:
-#       - db
-
-#   db:
-#     image: postgres:13-alpine
-#     ports:
-#       - "5432:5432"  # Expose PostgreSQL on port 5433 of the host machine
-#     volumes:
-#       - dev-db-data:/var/lib/postgresql/data
-#     environment:
-#       - POSTGRES_DB=devdb
-#       - POSTGRES_USER=devuser
-#       - POSTGRES_PASSWORD=changeme
-
-# volumes:
-#   dev-db-data:
 version: "3.9"
 
 services:
@@ -45,8 +9,7 @@ services:
     volumes:
       - ./app:/app
     command: >
-      sh -c "python manage.py wait_for_db &&
-             python manage.py migrate &&
+      sh -c "python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8002"
     environment:
       - DB_HOST=db
@@ -55,8 +18,7 @@ services:
       - DB_PASS=changeme
       - DB_PORT=5432
     depends_on:
-      db:
-        condition: service_healthy  # Ensure the db service is healthy before starting app
+      - db
 
   db:
     image: postgres:13-alpine
